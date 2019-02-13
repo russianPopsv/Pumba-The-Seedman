@@ -10,7 +10,6 @@ import json
 import sys
 
 class DragAndDropList(QtWidgets.QListWidget):
-
 	def __init__(self, parent=None, **args):
 		super(DragAndDropList, self).__init__(parent, **args)
 		self.setAcceptDrops(True)
@@ -30,7 +29,7 @@ class DragAndDropList(QtWidgets.QListWidget):
 class Ui_Dialog(object):
 	def setupUi(self, Dialog):
 		# glob variables 
-		self.version = "v2.7.0"
+		self.version = "v2.7.2"
 		self.FMT = "%Y-%m-%d %H:%M:%S"
 		self.today = dt.datetime.today()
 		self.weekday = self.today.weekday()
@@ -140,20 +139,20 @@ class Ui_Dialog(object):
 	# 		json.dump(values,config)
 
 	# def checkForUpdate(self):
-	# 	try:
-	# 		fileName = '\\ver.conf'
-	# 		with open(fileName,'br') as config:
-	# 			configVersion = json.load(config)
-	# 		version = configVersion['Version']
-	# 		verCurrent = self.version.split('.')
-	# 		verToCheck = version.split('.')
-	# 		for index in range(len(verCurrent)):
-	# 			if verCurrent[index] < verToCheck[index]:
-	# 				QtWidgets.QMessageBox.about(self,'Обновление','Доступна новая версия %s'%version)
-	# 				break
-	# 			else: continue
-	# 	except Exception as ex:
-	# 		self.writeLog('addAttachment failed with %s' %ex)
+		# try:
+			# fileName = '\\ver.conf'
+			# with open(fileName,'br') as config:
+				# configVersion = json.load(config)
+			# version = configVersion['Version']
+			# verCurrent = self.version.split('.')
+			# verToCheck = version.split('.')
+			# for index in range(len(verCurrent)):
+				# if verCurrent[index] < verToCheck[index]:
+					# QtWidgets.QMessageBox.about(self,'Обновление','Доступна новая версия %s'%version)
+					# break
+				# else: continue
+		# except Exception as ex:
+			# self.writeLog('addAttachment failed with %s' %ex)
 
 	def addAttachment(self, parent):
 		try:
@@ -165,11 +164,12 @@ class Ui_Dialog(object):
 			self.writeLog('addAttachment failed with %s' %ex)
 
 	def removeAttachment(self, parent):
-		try: #https://stackoverflow.com/questions/23835847/how-to-remove-item-from-qlistwidget/23836142
+		try:
 			listItems = self.listWidget.selectedItems()
 			if not listItems: return
 			for item in listItems:
-				self.listWidget.takeItem(self.listWidget.row(item))
+				index = self.listWidget.row(item)
+				self.listWidget.takeItem(index)
 		except Exception as ex:
 			self.writeLog('removeAttachment failed with %s' %ex)
 	
@@ -208,6 +208,9 @@ class Ui_Dialog(object):
 				return True
 			elif mode == 3:
 				self.timeDeltaBefore = self.timeStartOfDay - dt.datetime.now()
+				if not(self.isWeekend) and self.timeDeltaBefore < dt.timedelta(hours = 1): 
+						self.workForFree = "Отработка меньше 1 часа в будний день"	
+						return True
 				return True
 			else:
 				today = self.today.strftime("%d.%m.%Y")
@@ -224,7 +227,7 @@ class Ui_Dialog(object):
 						self.workForFree = "Отработка меньше 4 часов в выходной"			
 						return True
 					if not(self.isWeekend) and self.timeDelta < dt.timedelta(hours = 1): 
-						self.workForFree = "Отработка меньше 1 часа в в будний день"	
+						self.workForFree = "Отработка меньше 1 часа в будний день"	
 						return True
 					return True
 		except Exception as ex:
@@ -250,13 +253,16 @@ class Ui_Dialog(object):
 				subject = 'Выход на работу - %s' %today
 				message = ['<br>%s</br>' %today,
 							'<br>Пришел на работу в : %s</br>' %dt.datetime.now().strftime('%H:%M:%S'),
-							'<br>Пришел позже на : %s</br>' %self.extractTimeFormat(self.timeDeltaLate)]	
+							'<br>Пришел позже на : %s</br>' %self.extractTimeFormat(self.timeDeltaLate),
+							'<br>Часов в отработку: %s ч</br>' %(math.ceil(self.timeDeltaLate.seconds / 3600))]	
 			elif self.checkBox_3.checkState():
 				if self.getTime(3) is None: return None
 				subject = 'Переработка - %s' %today
 				message = ['<br>%s</br>' %today,
 							'<br>Пришел на работу в : %s</br>' %dt.datetime.now().strftime('%H:%M:%S'),
-							'<br>Пришел раньше на : %s</br>' %self.extractTimeFormat(self.timeDeltaBefore)]	
+							'<br>Пришел раньше на : %s</br>' %self.extractTimeFormat(self.timeDeltaBefore),
+							'<br>Полных часов: %s ч</br>' %(math.floor(self.timeDeltaBefore.seconds / 3600)),
+							'<br><b>%s<b></br>'%self.workForFree]	
 			else:
 				if self.getTime(1) is None: return None
 				subject = 'Переработка - %s' %today
