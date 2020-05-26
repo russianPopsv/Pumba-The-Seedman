@@ -87,7 +87,7 @@ class Ui_Dialog(QtWidgets.QDialog):
 		#
 		self.widget_list = DragAndDropList(self.gridLayoutWidget1)
 		self.widget_list.setObjectName("widget_list")
-		self.gridLayout1.addWidget(self.widget_list,6,0,3,2)
+		self.gridLayout1.addWidget(self.widget_list, 6, 0, 3, 2)
 		#
 		self.pushButton = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -101,21 +101,21 @@ class Ui_Dialog(QtWidgets.QDialog):
 		self.pushButton1.setObjectName("pushButton1")
 		self.pushButton1.setText("Add")
 		self.pushButton1.clicked.connect(self.attachment_add)
-		self.gridLayout1.addWidget(self.pushButton1,6,2,1,1)
+		self.gridLayout1.addWidget(self.pushButton1, 6, 2, 1, 1)
 		#
 		self.pushButton2 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton2.setObjectName("pushButton2")
 		self.pushButton2.setText("Remove")
 		self.pushButton2.clicked.connect(self.attachment_remove)
-		self.gridLayout1.addWidget(self.pushButton2,7,2,1,1)
+		self.gridLayout1.addWidget(self.pushButton2, 7, 2, 1, 1)
 		#
 		self.pushButton3 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton3.setObjectName("pushButton3")
 		self.pushButton3.setText("Clear all")
 		self.pushButton3.clicked.connect(self.attachment_clear)
-		self.gridLayout1.addWidget(self.pushButton3,8,2,1,1)
+		self.gridLayout1.addWidget(self.pushButton3, 8, 2, 1, 1)
 		#
 		self.pushButton4 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
@@ -156,7 +156,7 @@ class Ui_Dialog(QtWidgets.QDialog):
 		self.tableWidget.setObjectName("tableView")
 		self.tableWidget.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 		self.tableWidget.horizontalHeader().setSectionResizeMode(QtWidgets.QHeaderView.ResizeToContents)
-		self.gridLayout2.addWidget(self.tableWidget, 1,0,1,8)
+		self.gridLayout2.addWidget(self.tableWidget, 1, 0, 1, 8)
 		#
 		#tab settings
 		self.tab_settings = QtWidgets.QWidget()
