@@ -56,16 +56,16 @@ class Ui_Dialog(QtWidgets.QDialog):
 		self.gridLayoutWidget1 = QtWidgets.QWidget(self.tab)
 		self.gridLayoutWidget1.setGeometry(QtCore.QRect(0, 0, 350, 360))
 		self.gridLayoutWidget1.setObjectName("gridLayoutWidget1")
-		# 
+		#
 		self.gridLayout1 = QtWidgets.QGridLayout(self.gridLayoutWidget1)
 		self.gridLayout1.setContentsMargins(0, 0, 0, 0)
 		self.gridLayout1.setObjectName("gridLayout1")
-		# 
+		#
 		self.label = QtWidgets.QLabel(self.gridLayoutWidget1)
 		self.label.setObjectName("label")
 		self.label.setText("Weekend started at: ")
 		self.gridLayout1.addWidget(self.label, 3, 0, 1, 1)
-		# 
+		#
 		self.timeEdit = QtWidgets.QTimeEdit(self.gridLayoutWidget1)
 		self.timeEdit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.timeEdit.setButtonSymbols(QtWidgets.QAbstractSpinBox.UpDownArrows)
@@ -74,49 +74,49 @@ class Ui_Dialog(QtWidgets.QDialog):
 		self.timeEdit.setEnabled(self.is_weekend)
 		self.timeEdit.setDisplayFormat("HH:mm:ss")
 		self.gridLayout1.addWidget(self.timeEdit, 3, 1, 1, 1)
-		# 
+		#
 		self.textEdit = QtWidgets.QTextEdit(self.gridLayoutWidget1)
 		self.textEdit.setObjectName("textEdit")
 		self.textEdit.setFont(font)
 		self.gridLayout1.addWidget(self.textEdit, 0, 0, 1, 3)
-		# 
+		#
 		self.informationLabel = QtWidgets.QLabel(self.gridLayoutWidget1)
 		self.informationLabel.setAlignment(QtCore.Qt.AlignCenter)
 		self.informationLabel.setObjectName("informationLabel")
 		self.gridLayout1.addWidget(self.informationLabel, 1, 0, 1, 3)
-		# 
+		#
 		self.widget_list = DragAndDropList(self.gridLayoutWidget1)
 		self.widget_list.setObjectName("widget_list")
 		self.gridLayout1.addWidget(self.widget_list,6,0,3,2)
-		# 
+		#
 		self.pushButton = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton.setObjectName("pushButton")
 		self.pushButton.setText("Send")
 		self.pushButton.clicked.connect(self.message_send_bind)
 		self.gridLayout1.addWidget(self.pushButton, 4, 0, 1, 3)
-		# 
+		#
 		self.pushButton1 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton1.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton1.setObjectName("pushButton1")
 		self.pushButton1.setText("Add")
 		self.pushButton1.clicked.connect(self.attachment_add)
 		self.gridLayout1.addWidget(self.pushButton1,6,2,1,1)
-		# 
+		#
 		self.pushButton2 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton2.setObjectName("pushButton2")
 		self.pushButton2.setText("Remove")
 		self.pushButton2.clicked.connect(self.attachment_remove)
 		self.gridLayout1.addWidget(self.pushButton2,7,2,1,1)
-		# 
+		#
 		self.pushButton3 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton3.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton3.setObjectName("pushButton3")
 		self.pushButton3.setText("Clear all")
 		self.pushButton3.clicked.connect(self.attachment_clear)
 		self.gridLayout1.addWidget(self.pushButton3,8,2,1,1)
-		# 
+		#
 		self.pushButton4 = QtWidgets.QPushButton(self.gridLayoutWidget1)
 		self.pushButton4.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
 		self.pushButton4.setObjectName("pushButton4")
@@ -238,19 +238,19 @@ class Ui_Dialog(QtWidgets.QDialog):
 				self.widget_list.takeItem(index)
 		except Exception as ex:
 			worQt_logger.log_dump_crash()
-	
+
 	def attachment_clear(self, parent):
 		try: self.widget_list.clear()
 		except Exception as ex:
 			worQt_logger.log_dump_crash()
-	
+
 	def message_send_bind(self):
 		td = worQt_postman.message_send_extrawork(self.today)
 		self.textEdit.setText(str(td))
 
 
 	def check_in_bind(self):
-		pass 
+		pass
 
 	def fillview(self):#csv or json
 		pass
@@ -304,4 +304,4 @@ def main():
 	app.exec_()
 
 if __name__ == "__main__":
-	main()	
+	main()
