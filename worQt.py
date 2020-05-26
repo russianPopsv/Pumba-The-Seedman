@@ -173,13 +173,9 @@ class Ui_Dialog(QtWidgets.QDialog):
 		#
 		self.combo_day = QtWidgets.QComboBox(self.gridLayoutWidget3)
 		self.combo_day.setObjectName("combo_day")
-		self.combo_day.addItem("Mon")
-		self.combo_day.addItem("Tue")
-		self.combo_day.addItem("Wed")
-		self.combo_day.addItem("Thu")
-		self.combo_day.addItem("Fri")
-		self.combo_day.addItem("Sat")
-		self.combo_day.addItem("Sun")
+		for item in ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]:
+			self.combo_day.addItem(item)
+
 		self.gridLayout3.addWidget(self.combo_day, 0, 0, 1, 1)
 		#
 		self.label_day_start = QtWidgets.QLabel(self.gridLayoutWidget3)
